@@ -1,0 +1,17 @@
+{% macro showLogin(static, csrfToken) %}
+<div class="login-snippet">
+    <!--TODO: Log in with email and password-->
+    <div class="email-login">
+        <form id="form-login" action="/login" method="POST">
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+            <input type="text" class="form-control" name="username" placeholder="Tên đăng nhập hoặc email">
+            <input type="password" class="form-control" name="password" placeholder="Mật khẩu (ít nhất 8 kí tự)">
+            <button type="submit" class="btn btn-primary">
+                <span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;Đăng nhập
+            </button>
+            <a href="/forgot-pass" class="forgot-password">Quên mật khẩu?</a>
+        </form>
+    </div>
+
+</div>
+{% endmacro %}

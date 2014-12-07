@@ -1,0 +1,73 @@
+{% macro radarChart(chartId, scores) %}
+	<div id="{{ chartId }}"></div>
+
+    {% set maxPercent = 0 %}
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="/static/js/addon/radar-chart.js"></script>
+    <script>var {{ chartId }}_data = [];</script>
+
+    {% for score in scores %}
+        {% if (score.percent > maxPercent) %}
+            {% set maxPercent = score.percent %}
+        {% endif %}
+
+        <script>
+            var radarScore = {
+                axis: '{{ score.name }}',
+                value: {{ score.percent/100 }}
+            }
+            {{ chartId }}_data.push(radarScore);            
+        </script>
+    {% endfor %}
+
+    <script>
+    	var maxPercent = {{ maxPercent }};
+		var w = 300,
+			h = 300;
+
+		//Data
+		var d = [];
+		d.push({{ chartId }}_data);
+		maxPercent = (maxPercent + 5)/100;
+
+		//Options for the Radar chart, other than default
+		var mycfg = {
+			w: w,
+			h: h,
+			maxValue: maxPercent,
+			levels: 3,
+			ExtraWidthX: 300
+		}
+
+		RadarChart.draw("#{{ chartId }}", d, mycfg);
+    </script>
+{% endmacro %}
+
+{% macro pieChart(chartId, scores) %}
+	<script src="/static/js/addon/pie-chart.js"></script>
+	<script>var {{ chartId }}_data = []</script>
+
+    {% for score in scores %}
+        <div class="{{ chartId }} resultChart" chart-id="{{ loop.index0 }}">
+            <svg class="demo" viewBox="0 0 100 100">
+                <path class="background" d="M0 0 L0 0z"/>
+                <path class="foreground" d="M0 0 L0 0z" fill=""/>
+            </svg>
+            <span>{{ score.percent }} %</span>
+            <script>{{ chartId }}_data.push({{ score.percent }})</script>
+            <div class="scoreName">{{ score.name }}</div>
+        </div>
+    {% endfor %}
+
+    <script>
+    	$('.{{ chartId }}').each(function() {
+			var chart = $(this);
+			var index = chart.attr('chart-id');
+			PieChart.process(chart, {{ chartId }}_data[index], {
+				background: Grey300,
+				foreground: LightBlue100,
+				duration: 0
+			});
+		});
+    </script>
+{% endmacro %}

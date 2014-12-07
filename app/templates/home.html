@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block css -%}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ static('/css/home.css?v_03') }}">
+{%- endblock %}
+
+{% block Title %}
+    Trang Chủ TOXBadge
+{% endblock %}
+
+{% block homenav %}
+    <a class="logo active">
+{% endblock %}
+
+{% block body %}
+    <div class="jumpotron mashead">
+        <div class="container">
+            <h1>Capture Learning Any Time, Any Where</h1>
+            <p id="have-claim-code">Have a claim code?</p>
+            {% if (error) %}
+            <div class="label label-danger">Code không có hiệu lực hoặc không hợp lệ.</div>
+            {% endif %}
+            <p id="claim-code-wrapper">
+                <form action="/code/claim" method="GET">
+                    <input class="claim-code-input" name="code" type="text" placeholder="Enter Claim Code">
+                    <button type="submit" id="claim-code-submit" class="btn btn-info btn-lg btn-home-claim">NHẬN BADGE</button>
+                </form>
+            </p>
+        </div>
+    </div>
+    <div class="jumpwhite mashead">
+        <h1>Cuộc sống <br>luôn mở ra những thử thách<br>để chinh phục</h1>
+
+    </div>
+    <div class="jumpblue mashead"> 
+        <h2>Trong từng chặng đường của thử thách<br>TOXBadge ghi nhận tất cả nỗ lực của bạn<br>bằng những chiếc huy hiệu số rất trực quan</h2>
+        <img src="{{ static('/images/badge.svg')}}">
+    </div>
+
+    <div class="jumpwhite mashead">
+        <h2>Và đồng hành với bạn đến thành công cuối cùng</h2>
+        <img src="http://kit.toxbadge.com/images/badge/201">
+    </div>
+
+    <div class="jumpicon mashead">
+        <h2>Trong mọi lĩnh vực, toán học, khoa học,<br>điện tử, lập trình, kĩ năng sống, nghệ thuật <br>và rất nhiều lĩnh vực khác<br>
+        <a href="/login" class="btn btn-start">Bắt đầu hành trình</a>
+        </h2>
+
+    </div>
+
+{% endblock %}
+{% block js %}
+    {{ super() }}
+    <script src="https://backpack.openbadges.org/issuer.js"></script>
+    <script src="{{ static('/js/home.js?v_02') }}"></script>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% macro viewIssuer(issuer) %}
+<div class="badge-snippet">
+    <div class="badge-img-container">
+        <a href="/issuer/{{issuer.slug}}" class="badge-image">
+            <img src="{{issuer.imageId}}"/>
+        </a>
+    </div>
+    <div class="badge-name">{{ issuer.name }}</div>
+</div>
+{% endmacro %}

@@ -1,0 +1,85 @@
+{% macro viewBadge(badge) %}
+<div class="badge-snippet">
+    <div class="badge-img-container">
+        <a href="#" data-toggle="modal" data-target="#badge-modal-{{badge.id}}" class="badge-image">
+            <img src="{{badge.imageUrl}}"/>
+        </a>
+    </div>
+    <div class="badge-name">{{ badge.name }}</div>
+
+    {% if (badge.issuerUrl) %}
+        <a class="badge-issuer" href="{{ badge.issuerUrl }}"> {{ badge.issuer.name | default(badge.issuerUrl) }}</a>
+    {% endif %}
+</div>
+
+<div class="modal fade" id="badge-modal-{{badge.id}}" tabindex="-1"
+    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Thông tin badge</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img class="badge-thumbnail" src="{{ badge.imageUrl }}">
+                            <a class="btn btn-info more-detail" href="/badge/{{badge.slug}}">
+                                <span class="glyphicon glyphicon-book"></span> Xem chi tiết
+                            </a>
+                        </div>
+                        <div class="col-md-7 info-col">
+                            <div class="badge-details" >
+                                <h1 class="badge-modal-name">{{ badge.name }}</h1>
+                                <h2>{{ badge.description }}</h2>
+
+                                {% if (badge.issuerUrl) %}
+                                    <h2>Cấp bởi: <a href="{{badge.issuerUrl}}">{{ badge.issuer.name | default(badge.issuerUrl) }}</a></h2>
+                                {% endif %}
+                                <div>Phát hành: {{ badge.createdView }}</div>
+
+                                <div class="eaner-info">
+                                    <strong>Thông tin cấp badge</strong>
+                                    <br/>
+                                    {{ badge.earnerDescription }}
+                                    <br/>
+                                    <br/>
+                                    <strong>Điều kiện cấp badge</strong>
+                                        <ul>
+                                            {% for criteria in badge.criteria %}
+                                                <li>
+                                                    {{ criteria.description }}
+
+                                                    <div class="small">{{ criteria.note }}</div>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    <br/>
+
+                                    <strong>Ước lượng thời gian</strong><br/>
+                                    {% if (badge.timeValue == 0) %}
+                                        Không xác định
+                                    {% else %}
+                                        Khoảng {{ badge.timeValue }} {{ badge.timeUnits }} để hoàn thành
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="/badge/{{badge.id}}/apply" title="Nhấp vào để đăng ký badge" class="btn btn-info">TOX</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!--modal-dialog-->
+</div>
+    <!--/.modal -->
+
+{% endmacro %}

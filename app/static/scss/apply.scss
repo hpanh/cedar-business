@@ -1,0 +1,25 @@
+@import "base";
+
+.badge-details{
+    background: $medium-blue;
+    padding: 20px 10px;
+    color: $white;
+}
+
+.badge-thumbnail{
+    width: 100%;
+}
+
+.white{
+    background-color: $white;
+}
+
+#form-badge-application{
+    margin: 0 10px;
+}
+
+.application-submit{
+    display: inherit;
+    padding: 5px 20px;
+    margin: 0 auto;
+}

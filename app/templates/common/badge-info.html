@@ -1,0 +1,10 @@
+
+{% macro viewBadge(badge ,url) %}
+<div class="badge-snippet">
+	<a href="/badge/{{badge.slug}}"></a>
+	<img class="badge-thumbnail" src="{{ badge.imageUrl }}">
+	<h3>
+		<a href="/badge/{{badge.slug}}">{{badge.name}}</a>
+	</h3>
+</div>
+{% endmacro %}
